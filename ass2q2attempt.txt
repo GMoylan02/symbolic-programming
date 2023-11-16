@@ -1,0 +1,17 @@
+
+houses(h(Col1, Nat1, Pet1),
+       h(Col2, Nat2, Pet2),
+       h(Col3, Nat3, Pet3)) --> 
+    colour(Col1), nationality(Nat1), pet(Pet1),
+    colour(Col2), nationality(Nat2), pet(Pet2),
+    colour(Col3), nationality(Nat3), pet(Pet3),
+    {dif(Col1, Col2, Col3),
+     dif(Nat1, Nat2, Nat3),
+     dif(Pet1, Pet2, Pet3)}.
+
+
+nbd --> {dif(H1, H2, H3)},
+    houses(H1,H2,H3), H1, H2, H3.
+
+dif(H1, H2, H3) :-
+    dif(H1, H2), dif(H1, H3), dif(H2, H3).

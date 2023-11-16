@@ -1,0 +1,23 @@
+append([], L, L).
+append([H|L1], L2, [H|L3]):-
+	append(L1, L2, L3). 
+
+fibno(0,0) :- !.
+fibno(1,1) :- !.
+fibno(N, Z) :-
+    N1 is N-1, 
+    N2 is N-2, 
+    fibno(N1, A), 
+    fibno(N2, B), 
+    Z is A + B.
+
+makeFibList(0, []).
+makeFibList(1, [1]).
+makeFibList(Num, Result) :- 
+    fibno(Num,Z), 
+    DecrNum is Num - 1,
+    makeFibList(DecrNum, X), 
+    append(X, [Z], Result).
+
+fib(0) --> [].
+fib(N) --> [A], {makeFibList(N, A)}.
