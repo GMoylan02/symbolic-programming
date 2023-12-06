@@ -1,7 +1,7 @@
 %Q 1
-s --> [1],[0],[1].
-s --> [2],[0],[2].
-s --> [3],[0],[3].
+
+%This accepts 0 since u and v are allowed to be the empty string
+s --> [0].
 s --> [1],s,[1].
 s --> [2],s,[2].
 s --> [3],s,[3].
@@ -27,6 +27,8 @@ nbd --> house(X,Y,Z),house(A,B,C),house(M,N,O),
      Y\=B, Y\=N, B\=N,
      Z\=C, Z\=O, C\=O}.
 %Q 3
+
+%Calculates the Nth fib number
 fibno(0,0) :- !.
 fibno(1,1) :- !.
 fibno(N, Z) :-
@@ -36,8 +38,10 @@ fibno(N, Z) :-
     fibno(N2, B), 
     Z is A + B.
 
+%Wrapper for 'g' since the solution is meant to be no-arg 
 fib --> g(0).
 
+%Generates all fib numbers from N to infinity in a list
 g(0) --> [0],g(1).
 g(N) --> {fibno(N, Num)}, [Num].
 g(N) --> {fibno(N, Num)}, [Num], {Acc is N + 1}, g(Acc).
@@ -69,7 +73,9 @@ q3 --> [].
 numeral(0).
 numeral(succ(X)) :- numeral(X).
 
+%Translates a number from succ() notation to a Numeral
 getNo(succ(0), X) :- X is 1.
 getNo(succ(A), Res) :- getNo(A, R1), Res is R1 + 1.
     
+%If the length of some string is equal to the number provided AND this string is accepted
 l3(String, A) :- getNo(A, N),length(String, N), accept(String).
