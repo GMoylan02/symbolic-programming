@@ -20,20 +20,25 @@ magic(Wizard)
 
 %(d)
 
-n2bs(Num, Res) :- 
-    nb(Num, [0], A), reverse(A, Res).
-    
-    
-nb(0, Ac, Ac).
-nb(succ(X), Ac, S) :-
-    inc(Ac, NAc),
-    nb(X, NAc, S).
+n2bs(0, [0]).
+n2bs(succ(0), [1]).
+n2bs(succ(X), Output) :- 
+    n2bs(X, LastOutput),
+    incBin(LastOutput, Output), !.
 
-
-inc([0|T], [1|T]).
-inc([1|T], [0|N]) :- 
-    inc(T, N).
-inc([], [1]).
+incBin([0], [1]).
+incBin([1], [1,0]).
+incBin(Input, Output) :- 
+    reverse(Input, [H|T]),
+    H = 0,
+    reverse([1|T], Output).
+incBin(Input, Output) :- 
+	reverse(Input, [H1|T1]),
+    H1 = 1,
+    reverse(T1, RevT1),
+    incBin(RevT1, IncRevT1),
+    reverse(IncRevT1, IncT1),
+    reverse([0|IncT1], Output).
     
 
 %Q2
